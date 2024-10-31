@@ -13,7 +13,7 @@ namespace BHD.Application
             CreateMap<User, CreatedUserDto>()
                 .ForMember(x => x.Created, cfg => cfg.MapFrom(y => y.CreatedAt))
                 .ForMember(x => x.Modified, cfg => cfg.MapFrom(y => y.ModifiedAt))
-                .ForMember(x => x.Token, cfg => cfg.MapFrom(x => x.Id))
+                .ForMember(x => x.Token, cfg => cfg.MapFrom(x => x.Token))
                 .ForMember(x => x.Last_Login, cfg => cfg.MapFrom(x => x.LastLogin))
                 .ReverseMap();
 
