@@ -4,6 +4,7 @@ using BHD.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BHD.Persistence.Migrations
 {
     [DbContext(typeof(BHDContext))]
-    partial class BHDContextModelSnapshot : ModelSnapshot
+    [Migration("20241031202943_Update password, token and email Max length in user table")]
+    partial class UpdatepasswordtokenandemailMaxlengthinusertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
