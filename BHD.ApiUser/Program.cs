@@ -31,6 +31,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 using BHD.ApiUser.Filters;
 using BHD.Application.Security.Authentication;
+using BHD.Application.Security.Password;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -159,6 +160,9 @@ builder.Services.AddScoped<IPhoneRepository, PhoneRepository>();
 #region Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtFactory, JwtFactory>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
+
+
 #endregion
 
 
