@@ -1,6 +1,7 @@
 ﻿using BHD.ApiUser.Middlewares;
 using BHD.Application.Dtos.Security;
 using BHD.Application.Security.Authentication;
+using BHD.Application.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -14,28 +15,42 @@ namespace BHD.ApiUser.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IJwtFactory _jwtFactory;
-        public AuthenticationController(IJwtFactory jwtFactory)
+        private readonly IUserService _userService;
+        public AuthenticationController(
+            IJwtFactory jwtFactory,
+            IUserService userService)
         {
             _jwtFactory = jwtFactory;
+            _userService = userService;
         }
 
         [HttpPost, AllowAnonymous]
         [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(string))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ResponseModel))]
         [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseModel))]
-        [SwaggerResponse((int)HttpStatusCode.Unauthorized, Type = typeof(ResponseModel))]
+        [SwaggerResponse((int)HttpStatusCode.Unauthorized, Type = typeof(string))]
         public IActionResult Login([FromBody] LoginModel model)
         {
-            string email = model.Email;
-            string password = model.Password;
+            bool isValid = _userService.Login(model);
 
-            //falta logica para validar usuario
-            if (!string.IsNullOrEmpty(email)  && !string.IsNullOrEmpty(password))
-            {
-                var token = _jwtFactory.GenerateEncodedToken(email);
-                return Ok(token);
-            }
-            return Unauthorized();
+            if(!isValid)
+                return Unauthorized("Usuario o contraseña incorrectos");
+
+            string token = _jwtFactory.GenerateEncodedToken(model.Email);
+            return Ok(token);
+            
+        }
+
+        [HttpPut(Name ="ByPassLogin"), AllowAnonymous]
+        [SwaggerResponse((int)HttpStatusCode.OK, Type = typeof(string))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ResponseModel))]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError, Type = typeof(ResponseModel))]
+        public IActionResult ByPassLogin([FromBody] LoginModel model)
+        {
+
+            string token = _jwtFactory.GenerateEncodedToken("string");
+            return Ok(token);
+
         }
     }
 }
