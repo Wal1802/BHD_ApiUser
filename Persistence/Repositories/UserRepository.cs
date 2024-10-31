@@ -17,6 +17,8 @@ namespace BHD.Persistence.Repositories
             return Add(user);
         }
 
+        public User GetByEmail(string email) => _dbSet.FirstOrDefault(x => x.Email == email);
+
         public bool EmailExists(string email) => Exists(x => x.Email == email);
        
     }
