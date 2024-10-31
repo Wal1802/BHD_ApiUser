@@ -14,28 +14,19 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using BHD.ApiUser.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using BHD.Application.Security;
 using BHD.Application.Security.Models;
 using BHD.Application.Security.Jwt;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Extensions.Options;
-using BHD.ApiUser.Filters;
 using BHD.Application.Security.Authentication;
 using BHD.Application.Security.Password;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers(opt => {
 
@@ -45,16 +36,16 @@ builder.Services.AddControllers(opt => {
     opt.Filters.Add(new AuthorizeFilter(authorizePolicy));
 
 })
-    .AddJsonOptions(options =>
+.AddJsonOptions(options =>
 {
-    // Configuración global del JsonSerializer
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // Usa camelCase
     options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase; // Usa camelCase para claves de diccionario
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Convierte enums a strings
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; // Ignora mayúsculas/minúsculas en nombres de propiedades
     options.JsonSerializerOptions.DefaultBufferSize = 16 * 1024; // Tamaño de búfer por defecto
 });
-;
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
@@ -63,8 +54,6 @@ builder.Services.AddSwaggerGen(opt =>
     {
         Version = "V1",
         Title = "BHD API",
-        //Description = "Prueba tecnica de api de usuario para el banco BHD.",
-        
     });
 
 
@@ -75,7 +64,6 @@ builder.Services.AddSwaggerGen(opt =>
         opt.IncludeXmlComments(xmlPath);
 
 
-    //Description = "JWT Authorization header using the Bearer scheme. Example: \"
 
     opt.AddSecurityDefinition("Bearer",
         new OpenApiSecurityScheme
@@ -102,27 +90,6 @@ builder.Services.AddSwaggerGen(opt =>
             Array.Empty<string>()
         }
     });
-
-
-    //opt.AddSecurityRequirement(new OpenApiSecurityRequirement()
-    //{
-    //    {
-    //        new OpenApiSecurityScheme
-    //        {
-    //            Reference = new OpenApiReference
-    //            {
-    //                Type = ReferenceType.SecurityScheme,
-    //                Id = "Bearer"
-    //            },
-    //            Scheme = "oauth2",
-    //            Name = "Bearer",
-    //            In = ParameterLocation.Header,
-
-    //        },
-    //        new List<string>()
-    //    }
-    //});
-
 
 });
 
