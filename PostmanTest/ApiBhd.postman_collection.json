@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "a4c8bb72-5dd0-4e0c-95b0-3fd9762479a4",
+		"name": "ApiBhd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4084686"
+	},
+	"item": [
+		{
+			"name": "GetTokenWithoutData",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": null,\r\n    \"password\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7007/api/V1/Authentication",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7007",
+					"path": [
+						"api",
+						"V1",
+						"Authentication"
+					]
+				},
+				"description": "Metodo para obtener el token sin pasarle un usuario y contraseña (este metodo fue creado por motivos de pruebas y debe ser eliminado para ambientes productivos)"
+			},
+			"response": []
+		},
+		{
+			"name": "GetTokenWithUserAndPassword",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"walddry10@gmail.com\",\r\n    \"password\": \"C0ntrasen1@123\"\r\n}"
+				},
+				"url": {
+					"raw": "https://localhost:7007/api/V1/Authentication",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7007",
+					"path": [
+						"api",
+						"V1",
+						"Authentication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateNewUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic3RyaW5nIiwianRpIjoiMmIyOTlhYWYtOTk3Zi00YjM3LWFiYWYtYmI1NzYxY2JlYzEzIiwiaWF0IjoxNzMwNDMzNTEwLCJuYmYiOjE3MzA0MzM1MTAsImV4cCI6MTczMDQzNTMxMCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzAwNy8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo4MDgwLyJ9.IFoeuTgpHMo3eTipNtKKD3dHqadeNUVjldDAHWoSfOg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Walddry\",\r\n  \"email\": \"walddry10@gmail.com\",\r\n  \"password\": \"C0ntrasen1@\",\r\n  \"phones\": [\r\n    {\r\n      \"number\": \"3521802\",\r\n      \"cityCode\": \"849\",\r\n      \"countryCode\": \"1\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7007/api/V1/User",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7007",
+					"path": [
+						"api",
+						"V1",
+						"User"
+					]
+				},
+				"description": "Metodo para crear un usuario\r\nRequiere un valor en el header de Authorization siguiendo el siguiente formato: `Bearer TU_TOKEN_AQUI`"
+			},
+			"response": []
+		}
+	]
+}
