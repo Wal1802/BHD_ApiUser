@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Net;
 
 namespace BHD.ApiUser.Controllers
@@ -33,8 +34,8 @@ namespace BHD.ApiUser.Controllers
         {
             bool isValid = _userService.Login(model);
 
-            if(!isValid)
-                return Unauthorized("Usuario o contraseña incorrectos");
+            if (!isValid)
+                throw new UnauthorizedAccessException("Usuario o contraseña incorrectos");
 
             string token = _jwtFactory.GenerateEncodedToken(model.Email);
             return Ok(token);
