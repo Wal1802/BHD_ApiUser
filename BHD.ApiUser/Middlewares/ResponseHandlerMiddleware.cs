@@ -33,12 +33,7 @@ namespace BHD.ApiUser.Middlewares
 
                 await _next(context);
 
-                if(context.Response.StatusCode > 299)
-                {
-                    if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
-                        throw new UnauthorizedAccessException("No tienes autorización para realizar esta acción");
-                    else throw new Exception("Internal server error");
-                }
+                
 
             }
             catch (Exception ex)
