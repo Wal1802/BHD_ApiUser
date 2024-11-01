@@ -66,16 +66,22 @@ dotnet tool install --global dotnet-ef --version 6.0.35
 Para poner a correr el proyecto, ejecuta el siguiente comando en la línea de comandos desde el directorio raíz del proyecto:
  
 ```bash
-dotnet run
+dotnet run --project BHD.ApiUser
 ```
  
 ### Pruebas con swagger
- 
-Para acceder al recurso de crear usuario debes tener un token valido, para generarlo debes utilizar el metodo HTTPPut en el controlador Authentication con los valores por defualt, una vez obtengas un token debes configurarlo de la siguiente manera
+
+Para acceder al index de swagger, debes dirigirte a la url: 
+
+`https://localhost:7007/swagger/index.html`
+
+Para acceder al recurso de crear usuario debes tener un token valido, para generarlo debes utilizar el metodo HttpPut en el controlador Authentication con los valores por defualt, una vez obtengas un token debes configurarlo de la siguiente manera
  
 `Bearer TU_TOKEN_AQUI`
  
 Una vez lo configures ya podras acceder a los recursos protegidos, como por ejemplo el HTTPPost del controlador user, con el que podras crear los usuarios.
+
+El metodo HttpPost en el controlador Authentication acepta un usuario y contraseña existentes y retorna un token en caso de que sean validos, este token es necesario para acceder a los recursos protegidos.
  
 ### Personaliza el Regex para contraseña (Opcional)
  
